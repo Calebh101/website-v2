@@ -11,3 +11,12 @@
     gap: 18px;
   }
 }
+
+#main-icon:hover {
+  cursor: pointer;
+  width: 220px !important;
+}
+
+#main-icon:active {
+  width: 200px !important;
+}

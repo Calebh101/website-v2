@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, useState, type Dispatch, type SetStateAction } from 'react';
 import { createRoot } from 'react-dom/client';
 import './css/index.css';
 import Page404 from './pages/404.tsx';
@@ -27,4 +27,9 @@ function route(): () => React.JSX.Element {
   }
 
   return route || Page404;
+}
+
+export function state<S>(initialState: S): [S, S, Dispatch<SetStateAction<S>>] {
+  const s = useState<S>(initialState);
+  return [s[0], initialState, s[1]];
 }
