@@ -96,4 +96,4 @@ export default function Projects() {
   );
 }
 
-export function Project(options: {}) {}
+//export function Project(options: {}) {}
