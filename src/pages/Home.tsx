@@ -1,12 +1,13 @@
 import '../css/Home.css';
-import { Page, state } from '../main';
+import { state } from '../main';
+import Page from '../Page';
 
 export default function Home() {
   const small = screen.width <= 768;
   const [shadowSize, defaultShadowSize, setShadowSize] = state<[number, number, boolean]>([small ? 100 : 250, 20, false]);
 
   return (
-    <Page>
+    <Page footer={false}>
       <section id="center">
         <div
           style={{

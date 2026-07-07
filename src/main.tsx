@@ -34,10 +34,6 @@ export function state<S>(initialState: S): [S, S, Dispatch<SetStateAction<S>>] {
   return [s[0], initialState, s[1]];
 }
 
-export function Page({children}: {children: React.ReactNode}): React.JSX.Element {
-  return <>{children}</>;
-}
-
 export function lighten(hex: string, percent: number = 0.4): string {
   const hash = hex.startsWith("#");
   if (!hash) hex = "#" + hex;

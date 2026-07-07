@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import '../css/Projects.css';
-import { lightenIf, Page, state } from "../main";
+import { lightenIf, state } from "../main";
+import Page from '../Page';
 
 const cacheDuration = 3 * 60 * 60 * 1000; // 3 hours
 
