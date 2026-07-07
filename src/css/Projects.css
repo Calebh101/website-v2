@@ -1,0 +1,31 @@
+.tabbutton:hover {
+  transform: translateY(-2px);
+}
+
+#projects-content {
+  display: grid;
+  gap: 16px;
+}
+
+#projects-content.cols-1 {
+  grid-template-columns: 1fr;
+}
+
+#projects-content.cols-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.project-card {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@media (prefers-color-scheme: light) {
+  .project-card {
+    border: 2px solid rgb(119, 119, 119)
+  }
+}

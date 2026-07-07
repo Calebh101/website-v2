@@ -12,11 +12,13 @@
   }
 }
 
-#main-icon:hover {
-  cursor: pointer;
-  width: 220px !important;
+@media (any-hover: hover) and (any-pointer: fine) {
+  #main-icon:hover {
+    cursor: pointer;
+    width: 200px !important;
+  }
 }
 
 #main-icon:active {
-  width: 200px !important;
+  width: 180px !important;
 }
