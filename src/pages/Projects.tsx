@@ -179,8 +179,7 @@ export default function Projects() {
         <button
           className="tabbutton"
 
-          onMouseDown={() => {
-          }}
+          onMouseDown={() => {}}
 
           onMouseUp={() => {
             if (animating) return;
@@ -245,11 +244,15 @@ export default function Projects() {
             height: 100,
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "safe center",
             backgroundColor: "var(--bg)",
             gap: 10,
             borderRadius: 24,
             zIndex: 3,
+            overflowX: "auto",
+            overflowY: "hidden",
+            WebkitOverflowScrolling: "touch",
+            padding: "0 20px",
           }}
         >
           <TabButton state={allProjectsState}></TabButton>
@@ -294,6 +297,7 @@ function Project(options: {current: ProjectState, language: Language, project: P
   const {name, repo, description, icon, homepage, mainLanguage} = project;
   const [stats, , setStats] = state<ProjectStats | undefined>(undefined);
   const color = allStates[language].color;
+  const small = screen.width <= 500;
 
   useEffect(() => {
     let cancelled = false;
@@ -360,7 +364,7 @@ function Project(options: {current: ProjectState, language: Language, project: P
       <div
         className='project-card'
         style={{
-          width: 500,
+          width: small ? 300 : 500,
           minHeight: 200,
           alignItems: "center",
           display: "flex",
@@ -380,9 +384,9 @@ function Project(options: {current: ProjectState, language: Language, project: P
               alignItems: "center",
             }}>
               <img style={{
-                width: 100,
+                width: small ? 50 : 100,
                 padding: 15,
-                height: 100,
+                height: small ? 50 : 100,
                 flex: "0 0 auto",
                 objectFit: "contain",
                 marginLeft: 15,
