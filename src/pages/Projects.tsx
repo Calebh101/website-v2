@@ -33,7 +33,7 @@ export const projects: Record<Language, ProjectData[]> = {
       id: "clinks",
       name: "CLinks",
       repo: "Calebh101/links_manager",
-      mainLanguage: "Dart + TypeScript",
+      mainLanguage: "Flutter + TypeScript (Full-Stack)",
       homepage: "https://clinks.calebh101.net",
       icon: "https://raw.githubusercontent.com/Calebh101/links_manager/main/favicon.png",
 
@@ -42,10 +42,18 @@ export const projects: Record<Language, ProjectData[]> = {
   ],
   "dart": [
     {
+      id: "dexcom",
+      name: "dexcom",
+      repo: "Calebh101/dexcom",
+      mainLanguage: "Dart",
+
+      description: "Some documentation and a Dart package on the Dexcom Share API.",
+    },
+    {
       id: "clinks",
       name: "CLinks Client",
       repo: "Calebh101/links_manager",
-      mainLanguage: "Dart",
+      mainLanguage: "Flutter",
       homepage: "https://clinks.calebh101.net",
       icon: "https://raw.githubusercontent.com/Calebh101/links_manager/main/favicon.png",
 
@@ -55,18 +63,10 @@ export const projects: Record<Language, ProjectData[]> = {
       id: "account-manager",
       name: "Account Manager",
       repo: "Calebh101/account-manager",
-      mainLanguage: "Dart",
+      mainLanguage: "Flutter",
       homepage: "https://account.calebh101.net",
 
       description: "The web client for managing your account for my server is written in Flutter!",
-    },
-    {
-      id: "dexcom",
-      name: "dexcom",
-      repo: "Calebh101/dexcom",
-      mainLanguage: "Dart",
-
-      description: "Some documentation and a Dart package on the Dexcom Share API.",
     },
   ],
   "swift": [
@@ -74,7 +74,7 @@ export const projects: Record<Language, ProjectData[]> = {
       id: "magnificationscaler",
       name: "MagnificationScaler",
       repo: "Calebh101/MagnificationScaler",
-      mainLanguage: "Swift",
+      mainLanguage: "Swift + SwiftUI",
       icon: "https://raw.githubusercontent.com/Calebh101/MagnificationScaler/main/assets/images/icon.png",
 
       description: "A small macOS app to make the dock magnification scale with its size.",
@@ -137,16 +137,16 @@ function allProjects(): [Language, ProjectData][] {
 
 function getCache(repo: string): ProjectStats | undefined {
   try {
-    const raw = localStorage.getItem(`repo-cache:${repo}`);
+    const raw = localStorage.getItem(`gh:${repo}`);
     if (!raw) return undefined;
 
-    const { data, timestamp } = JSON.parse(raw);
-    if (Date.now() - timestamp > cacheDuration) {
-      localStorage.removeItem(`repo-cache:${repo}`);
+    const { d, t } = JSON.parse(raw);
+    if (Date.now() - t > cacheDuration) {
+      localStorage.removeItem(`gh:${repo}`);
       return undefined;
     }
 
-    return data;
+    return d;
   } catch {
     return undefined;
   }
@@ -154,7 +154,7 @@ function getCache(repo: string): ProjectStats | undefined {
 
 function setCache(repo: string, data: ProjectStats) {
   try {
-    localStorage.setItem(`repo-cache:${repo}`, JSON.stringify({ data, timestamp: Date.now() }));
+    localStorage.setItem(`gh:${repo}`, JSON.stringify({ d: data, t: Date.now() }));
   } catch {}
 }
 
@@ -189,10 +189,10 @@ export default function Projects() {
             if (selected !== index) {
               select(index);
               setProjectState(allProjectsState);
-              setShadowSize([100, 10]);
+              setShadowSize(smallShadowSize);
 
               setTimeout(() => setProjectState(state), 400);
-              setTimeout(() => setShadowSize(defaultShadowSize), 500);
+              if (state.index !== allProjectsState.index) setTimeout(() => setShadowSize(defaultShadowSize), 500);
               setTimeout(() => animate(false), 500);
             } else {
               select(index);
@@ -284,7 +284,9 @@ function ProjectContent(options: {state: ProjectState, animating: boolean}): Rea
           justifyItems: "center",
           gap: 40,
           paddingTop: 150,
-          paddingBottom: 100,
+          paddingBottom: 50,
+          alignItems: "start",
+          alignContent: "start",
         }}
       >
         {items?.map(project => <Project current={options.state} key={`${project[1].id}-${project[1].description}`} language={project[0]} project={project[1]} />)}
@@ -334,13 +336,31 @@ function Project(options: {current: ProjectState, language: Language, project: P
     return () => { cancelled = true; };
   }, [repo]);
 
+  const Image = ({style} : {style?: React.CSSProperties | undefined}) => <img style={{
+    flex: "0 0 auto",
+    objectFit: "contain",
+    ...(style ?? {}),
+  }} src={icon} />;
+
   function Content(): React.JSX.Element {
+    const title = <h2 style={{
+      textAlign: "left",
+    }}>{homepage ? <a target="_blank" href={homepage}>{name}</a> : name}</h2>;
+
     return (
       <>
         <div>
-          <h2 style={{
-            textAlign: "left",
-          }}>{homepage ? <a target="_blank" href={homepage}>{name}</a> : name}</h2>
+          {icon && small ? <div style={{
+            display: "flex",
+            alignItems: "center",
+          }}>
+            <Image style={{
+              width: 30,
+              height: 30,
+              padding: 5,
+            }}></Image>
+            {title}
+          </div> : title}
           <p style={{
             fontSize: 14,
             textAlign: "left",
@@ -378,20 +398,18 @@ function Project(options: {current: ProjectState, language: Language, project: P
         }}
       >
         {
-          icon ?
+          icon && !small ?
             <div style={{
               display: "flex",
               height: "100%",
               alignItems: "center",
             }}>
-              <img style={{
-                width: small ? 50 : 100,
-                padding: 15,
-                height: small ? 50 : 100,
-                flex: "0 0 auto",
-                objectFit: "contain",
+              <Image style={{
                 marginLeft: 15,
-              }} src={icon} />
+                width: small ? 50 : 100,
+                height: small ? 50 : 100,
+                padding: 15,
+              }}></Image>
               <div style={{
                 flex: 3,
                 padding: 15,

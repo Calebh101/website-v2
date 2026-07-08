@@ -12,12 +12,26 @@
 }
 
 @media (any-hover: hover) and (any-pointer: fine) {
+  #main-icon {
+    transition: box-shadow 0.5s ease, width 0.3s ease,
+  }
+
   #main-icon:hover {
     cursor: pointer;
     width: 200px !important;
   }
+
+  #main-icon:active {
+    width: 180px !important;
+  }
 }
 
-#main-icon:active {
-  width: 180px !important;
+@media (any-hover: none), (any-pointer: coarse) {
+  #main-icon {
+    transition: box-shadow 0.2s ease, width 0.3s ease,
+  }
+
+  #main-icon:active {
+    width: 200px !important;
+  }
 }

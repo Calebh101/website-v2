@@ -29,7 +29,7 @@ export default function Home() {
               if (shadowSize[2]) {
                 setShadowSize(defaultShadowSize);
               } else {
-                setShadowSize([small ? 300 : 500, small ? 200 : 400, true]);
+                setShadowSize([small ? 200 : 300, small ? 200 : 400, true]);
               }
             }}
           />
