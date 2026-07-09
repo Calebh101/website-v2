@@ -1,9 +1,18 @@
 import { contacts } from "./constants";
 
+function PageNavbar() {
+  return (
+    <></>
+  );
+}
+
 export default function Page({footer = true, children}: {footer?: boolean, children: React.ReactNode}): React.JSX.Element {
   return (<>
+    <div style={{}}>
+      <PageNavbar></PageNavbar>
+    </div>
     <div style={{
-      minHeight: "100vh",
+      minHeight: "calc(100vh - 56px)",
       display: "flex",
       flexDirection: "column",
     }}>
@@ -11,6 +20,7 @@ export default function Page({footer = true, children}: {footer?: boolean, child
         flex: 1,
         display: "flex",
         justifyContent: "center",
+        marginTop: 50,
       }}>
         {children}
       </div>

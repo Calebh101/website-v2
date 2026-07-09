@@ -36,9 +36,7 @@ export default function Home() {
         </div>
         <div>
           <h1>Calebh101</h1>
-          <p>
-            Blah blah blah mention Dart/Flutter, Swift, and TypeScript
-          </p>
+          <a href="/projects">My Projects</a>
         </div>
       </section>
     </Page>
